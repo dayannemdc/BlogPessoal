@@ -1,13 +1,13 @@
-package com.blogpessoal.blog;
+package com.MeuBlogPessoal.BlogPessoal;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class BlogApplication {
+public class BlogPessoalApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(BlogApplication.class, args);
+		SpringApplication.run(BlogPessoalApplication.class, args);
 	}
 
 }
