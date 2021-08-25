@@ -11,7 +11,7 @@ import com.MeuBlogPessoal.BlogPessoal.model.Postagem;
 import com.MeuBlogPessoal.BlogPessoal.repository.PostagemRepository;
 
 @RestController
-@RequestMapping("/api/vi/postagem")
+@RequestMapping("/api/v1/postagem")
 public class PostagemController {
 
 	private @Autowired PostagemRepository repositorio;
