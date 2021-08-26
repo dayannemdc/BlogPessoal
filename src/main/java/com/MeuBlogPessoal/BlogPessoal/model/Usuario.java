@@ -16,7 +16,7 @@ public class Usuario {
 	private @NotBlank @Email String email;
 	private @NotBlank @Size(min = 5) String senha;
 	
-	public Long getIdPostagem() {
+	public Long getIdUsuario() {
 		return idUsuario;
 	}
 
