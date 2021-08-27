@@ -6,6 +6,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Postagem {
@@ -14,6 +16,15 @@ public class Postagem {
 	private String titulo;
 	private String texto;
 	private Date date = new java.sql.Date(System.currentTimeMillis());
+	
+	@ManyToOne
+	@JoinColumn(name = "criador_id")
+	private Usuario criador;
+	
+	@ManyToOne
+	@JoinColumn(name = "tema_id")
+	private Tema temaRelacionado;
+	
 	public Long getIdPostagem() {
 		return idPostagem;
 	}

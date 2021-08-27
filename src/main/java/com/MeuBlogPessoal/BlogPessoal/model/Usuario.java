@@ -1,9 +1,14 @@
 package com.MeuBlogPessoal.BlogPessoal.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -15,6 +20,9 @@ public class Usuario {
 	private @NotBlank String nome;
 	private @NotBlank @Email String email;
 	private @NotBlank @Size(min = 5) String senha;
+	
+	@OneToMany(mappedBy = "criador", cascade = CascadeType.REMOVE)
+	private List<Postagem> minhasPostagens = new ArrayList<>();
 	
 	public Long getIdUsuario() {
 		return idUsuario;
