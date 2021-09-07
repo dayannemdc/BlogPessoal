@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.MeuBlogPessoal.BlogPessoal.model.Usuario;
+import com.MeuBlogPessoal.BlogPessoal.model.Utility.UsuarioDTO;
 import com.MeuBlogPessoal.BlogPessoal.repository.UsuarioRepository;
 import com.MeuBlogPessoal.BlogPessoal.service.UsuarioService;
 
@@ -47,6 +48,16 @@ public class UsuarioController {
 			return ResponseEntity.status(201).body(objetoOptional.get());
 		}
 	}
+	
+	@PutMapping("/credenciais")
+	public ResponseEntity<Object> credenciais(@Valid @RequestBody UsuarioDTO usuarioParaAutenticar){
+		Optional<?> objetoOptional = servicos.pegarCredenciais(usuarioParaAutenticar);
+		if (objetoOptional.isEmpty()) {
+			return ResponseEntity.status(400).build();
+		}else {
+			return ResponseEntity.status(201).body(objetoOptional.get());
+		}
+	}
 
 	@GetMapping("/{id_usuario}")
 	public ResponseEntity<Usuario> buscarPorId(@PathVariable(value = "id_usuario") Long idUsuario) {
@@ -67,8 +78,15 @@ public class UsuarioController {
 			return ResponseEntity.status(200).body(objetoLista);
 		}
 	}
+	
+	@GetMapping("/pesquisa/email")
+	public ResponseEntity<Usuario> buscarPorEmail (@RequestParam(defaultValue = "") String email){
+		return repositorio.findByEmail(email)
+				.map(batatinha -> ResponseEntity.ok(batatinha))
+				.orElse(ResponseEntity.notFound().build());
+	}
 
-	@GetMapping("/pesquisa")
+	@GetMapping("/pesquisa/nome")
 	public ResponseEntity<List<Usuario>> buscarPorNomeII(@RequestParam(defaultValue = "") String nome) {
 		List<Usuario> objetoLista = repositorio.findAllByNomeContainingIgnoreCase(nome);
 		if (objetoLista.isEmpty()) {

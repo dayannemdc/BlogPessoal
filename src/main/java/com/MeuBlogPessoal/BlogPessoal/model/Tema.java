@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 @Entity
 public class Tema {
 
@@ -17,6 +19,7 @@ public class Tema {
 	private String tema;
 	
 	@OneToMany(mappedBy = "temaRelacionado", cascade = CascadeType.REMOVE)
+	@JsonIgnoreProperties({"temaRelacionado"})
 	private List<Postagem> postagens = new ArrayList<>();
 	
 	public Long getIdTema() {
@@ -31,5 +34,12 @@ public class Tema {
 	public void setTema(String tema) {
 		this.tema = tema;
 	}
+	public List<Postagem> getPostagens() {
+		return postagens;
+	}
+	public void setPostagens(List<Postagem> postagens) {
+		this.postagens = postagens;
+	}
+	
 	
 }
