@@ -35,6 +35,14 @@ public class UsuarioService {
 		});
 	}
 	
+	public Optional<Object> atualizarUsuario (Usuario usuarioParaAtualizar) {
+		return repositorio.findByEmail(usuarioParaAtualizar.getEmail()).map(usuarioExistente ->{
+			return Optional.empty();
+		}).orElseGet(()->{
+			return Optional.ofNullable(repositorio.save(usuarioParaAtualizar));
+		});
+	}
+	
 	public Optional<?> pegarCredenciais(UsuarioDTO usuarioParaAutenticar){
 		return repositorio.findByEmail(usuarioParaAutenticar.getEmail()).map(usuarioExistente -> {
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();

@@ -96,13 +96,35 @@ public class UsuarioController {
 		}
 	}
 
-	@PutMapping("/atualizar")
+	/*@PutMapping("/atualizar")
 	public ResponseEntity<Usuario> atualizar(@Valid @RequestBody Usuario usuarioParaAtualizar) {
 		return ResponseEntity.status(201).body(repositorio.save(usuarioParaAtualizar));
+	}*/
+	
+	@PutMapping("/atualizar")
+	public ResponseEntity<Object> atualizarUsuario(@Valid @RequestBody Usuario usuarioParaAtualizar){
+		Optional<Object> objetoOptional = servicos.atualizarUsuario(usuarioParaAtualizar);
+		
+		if (objetoOptional.isEmpty()) {
+			return ResponseEntity.status(400).build();
+		}else {
+			return ResponseEntity.status(201).body(repositorio.save(usuarioParaAtualizar));
+		}
 	}
 
-	@DeleteMapping("/deletar/{id_usuario}")
+	/*@DeleteMapping("/deletar/{id_usuario}")
 	public void deletarUsuarioPorId(@PathVariable(value = "id_usuario") Long idUsuario) {
 		repositorio.deleteById(idUsuario);
+	}*/
+	
+	@DeleteMapping("/deletar/{idUsuario}")
+	public ResponseEntity<Object> deletarUsuario (@PathVariable(value = "idUsuario") Long idUsuario){
+		Optional<Usuario> objetoOptional = repositorio.findById(idUsuario);
+		if (objetoOptional.isEmpty()) {
+			return ResponseEntity.status(400).build();
+		}else {
+			repositorio.deleteById(idUsuario);
+			return ResponseEntity.status(200).build();
+		}
 	}
 }
